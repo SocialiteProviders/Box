@@ -12,7 +12,9 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://app.box.com/api/oauth2/authorize', $state);
+        return $this->buildAuthUrlFromBase(
+            'https://app.box.com/api/oauth2/authorize', $state
+        );
     }
 
     /**
@@ -28,7 +30,8 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get('https://www.box.com/api/2.0/users/me', [
+        $response = $this->getHttpClient()->get(
+            'https://www.box.com/api/2.0/users/me', [
             'headers' => [
                 'Accept'        => 'application/json',
                 'Authorization' => 'Bearer '.$token,
@@ -44,11 +47,8 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-            'id'       => $user['id'],
-            'nickname' => null,
-            'name'     => $user['name'],
-            'email'    => $user['login'],
-            'avatar'   => $user['avatar_url'],
+            'id' => $user['id'], 'nickname' => null, 'name' => $user['name'],
+            'email' => $user['login'], 'avatar' => $user['avatar_url'],
         ]);
     }
 
@@ -57,6 +57,8 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenFields($code)
     {
-        return array_merge(parent::getTokenFields($code), ['grant_type' => 'authorization_code']);
+        return array_merge(parent::getTokenFields($code), [
+            'grant_type' => 'authorization_code',
+        ]);
     }
 }
