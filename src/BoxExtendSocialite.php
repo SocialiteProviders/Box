@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\Box;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;

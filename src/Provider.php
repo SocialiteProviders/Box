@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\Box;
 
 use Laravel\Socialite\Two\AbstractProvider;
@@ -33,12 +34,12 @@ class Provider extends AbstractProvider implements ProviderInterface
         $response = $this->getHttpClient()->get(
             'https://www.box.com/api/2.0/users/me', [
             'headers' => [
-                'Accept'        => 'application/json',
+                'Accept' => 'application/json',
                 'Authorization' => 'Bearer '.$token,
             ],
         ]);
 
-        return json_decode($response->getBody(), true);
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
